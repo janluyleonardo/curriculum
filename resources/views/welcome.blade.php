@@ -7,7 +7,7 @@
         <title>Laravel</title>
 
         <!-- favicon -->
-        <link rel="shortcut icon" href="{{asset('favicon.png')}}" type="image/x-icon">
+        <link rel="shortcut icon" href="{{asset('images/icono-curriculum.png')}}" type="image/x-icon">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -31,7 +31,7 @@
                             @auth
                                 <a href="{{ url('/dashboard') }}" class="tbtn btn-primary ">Dashboard</a>
                             @else
-                                <a href="{{ route('login') }}" class="btn btn-primary ">{{__('Log in')}}</a>
+                                <a href="{{ route('login') }}" class="btn btn-primary ">{{__('Login')}}</a>
 
                                 @if (Route::has('register'))
                                     <a href="{{ route('register') }}" class="btn btn-primary ">{{__('Register')}}</a>
