@@ -25,4 +25,22 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/about', function () {
+        return view('cv/about');
+    })->name('about');
+    Route::get('/experience', function () {
+        return view('cv/experience');
+    })->name('experience');
+    Route::get('/education', function () {
+        return view('cv/education');
+    })->name('education');
+    Route::get('/skills', function () {
+        return view('cv/skills');
+    })->name('skills');
+    Route::get('/interests', function () {
+        return view('cv/interests');
+    })->name('interests');
+    Route::get('/awards', function () {
+        return view('cv/awards');
+    })->name('awards');
 });
