@@ -15,10 +15,10 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
+                    <x-jet-nav-link href="{{ route('about.index') }}" :active="request()->routeIs('about')">
                         {{ __('about') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('experience') }}" :active="request()->routeIs('experience')">
+                    <x-jet-nav-link href="{{ route('experience.index') }}" :active="request()->routeIs('experience')">
                         {{ __('experience') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('education') }}" :active="request()->routeIs('education')">

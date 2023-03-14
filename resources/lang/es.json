@@ -47,5 +47,7 @@
     "We won't ask for your password again for a few hours.": "No pediremos su contraseña de nuevo por unas horas.",
     "You are logged in!": "¡Ha iniciado sesión!",
     "Your email address is not verified.": "Su dirección de correo electrónico no está verificada.",
-    "Profile": "Perfil"
+    "Profile": "Perfil",
+    "Dashboard":"inicio",
+    "about":"Acerca de"
 }

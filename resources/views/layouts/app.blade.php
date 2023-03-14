@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
         <!-- favicon -->
         <link rel="shortcut icon" href="{{asset('favicon.png?V='.now()->format('H.s'))}}" type="image/x-icon">
         <!-- Fonts -->

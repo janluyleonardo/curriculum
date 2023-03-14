@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\aboutController;
+use App\Http\Controllers\experienceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,15 +27,20 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('/about', function () {
-        return view('cv/about');
-    })->name('about');
-    Route::get('/experience', function () {
-        return view('cv/experience');
-    })->name('experience');
+    // Route::get('/about', function () {
+    //     return view('cv/about');
+    // })->name('about');
+    Route::resource('/about', aboutController::class);
+
+    // Route::get('/experience', function () {
+    //     return view('cv/experience');
+    // })->name('experience');
+    Route::resource('/experience', experienceController::class);
+
     Route::get('/education', function () {
         return view('cv/education');
     })->name('education');
+
     Route::get('/skills', function () {
         return view('cv/skills');
     })->name('skills');
