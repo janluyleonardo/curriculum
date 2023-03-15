@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\aboutController;
 use App\Http\Controllers\experienceController;
+use App\Http\Controllers\educationController;
+use App\Http\Controllers\skillsController;
+use App\Http\Controllers\interestsController;
+use App\Http\Controllers\awardsController;
+use App\Http\Controllers\previewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,30 +29,19 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-    // Route::get('/about', function () {
-    //     return view('cv/about');
-    // })->name('about');
+    Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
+
     Route::resource('/about', aboutController::class);
 
-    // Route::get('/experience', function () {
-    //     return view('cv/experience');
-    // })->name('experience');
     Route::resource('/experience', experienceController::class);
 
-    Route::get('/education', function () {
-        return view('cv/education');
-    })->name('education');
+    Route::resource('/education', educationController::class);
 
-    Route::get('/skills', function () {
-        return view('cv/skills');
-    })->name('skills');
-    Route::get('/interests', function () {
-        return view('cv/interests');
-    })->name('interests');
-    Route::get('/awards', function () {
-        return view('cv/awards');
-    })->name('awards');
+    Route::resource('/skills', skillsController::class);
+
+    Route::resource('/interests', interestsController::class);
+
+    Route::resource('/awards', awardsController::class);
+
+    Route::resource('/preview', previewController::class);
 });
