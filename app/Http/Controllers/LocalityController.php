@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\locality;
+use App\Http\Requests\StorelocalityRequest;
+use App\Http\Requests\UpdatelocalityRequest;
 
-class aboutController extends Controller
+class LocalityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,10 +15,8 @@ class aboutController extends Controller
      */
     public function index()
     {
-        $localities = new LocalityController();
-        $localities = $localities->index();
-        // return $localities;
-        return view('cv.about.index', compact('localities'));
+        $localities = locality::all();
+        return $localities;
     }
 
     /**
@@ -32,21 +32,21 @@ class aboutController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StorelocalityRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorelocalityRequest $request)
     {
-        return "entro en store";
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\locality  $locality
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(locality $locality)
     {
         //
     }
@@ -54,10 +54,10 @@ class aboutController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\locality  $locality
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(locality $locality)
     {
         //
     }
@@ -65,11 +65,11 @@ class aboutController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\UpdatelocalityRequest  $request
+     * @param  \App\Models\locality  $locality
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatelocalityRequest $request, locality $locality)
     {
         //
     }
@@ -77,10 +77,10 @@ class aboutController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\locality  $locality
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(locality $locality)
     {
         //
     }

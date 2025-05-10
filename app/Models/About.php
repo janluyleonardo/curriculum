@@ -16,8 +16,7 @@ class About extends Model
      */
     protected $fillable = [
         'id_user',
-        'name',
-        'lastname',
+        'full_name',
         'address',
         'neighborhood',
         'locality',
