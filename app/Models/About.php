@@ -15,17 +15,21 @@ class About extends Model
      * @var string[]
      */
     protected $fillable = [
-        'id_user',
-        'full_name',
-        'address',
-        'neighborhood',
+        'dateOfBirth',
+        'Photo',
+        'name',
+        'document',
+        'phone',
+        'city',
+        'department',
         'locality',
-        'phone_number',
-        'email',
-        'profile',
-        'linkedin_address',
-        'github_address',
-        'twitter_address',
-        'facebook_address',
+        'address',
+        'barrio',
+        'personalProfile',
+        'social_media_links',
+    ];
+
+    protected $casts = [
+        'social_media_links' => 'array',
     ];
 }
