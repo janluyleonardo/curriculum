@@ -165,38 +165,40 @@
                 </div>
               </div>
             </form>
-            <hr>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">{{ __('Full Name') }}</th>
-                  <th scope="col">{{ __('DocumentNumber') }}</th>
-                  <th scope="col">{{ __('Phone') }}</th>
-                  <th scope="col">{{ __('Actions') }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($abouts as $about)
+            @if ($abouts->isNotEmpty())
+              <hr>
+              <table class="table">
+                <thead>
                   <tr>
-                    <th scope="row">{{ $about->id }}</th>
-                    <td>{{ $about->name }}</td>
-                    <td>{{ $about->document }}</td>
-                    <td>{{ $about->phone }}</td>
-                    <td>
-                      <a href="{{ route('about.show', $about->id) }}" class="btn btn-warning">Show</a>
-                      <a href="{{ route('about.edit', $about->id) }}" class="btn btn-primary">Edit</a>
-                      <form action="{{ route('about.destroy', $about->id) }}" method="POST"
-                        style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                      </form>
-                    </td>
+                    <th scope="col">#</th>
+                    <th scope="col">{{ __('Full Name') }}</th>
+                    <th scope="col">{{ __('DocumentNumber') }}</th>
+                    <th scope="col">{{ __('Phone') }}</th>
+                    <th scope="col">{{ __('Actions') }}</th>
                   </tr>
-                @endforeach
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  @foreach ($abouts as $about)
+                    <tr>
+                      <th scope="row">{{ $about->id }}</th>
+                      <td>{{ $about->name }}</td>
+                      <td>{{ $about->document }}</td>
+                      <td>{{ $about->phone }}</td>
+                      <td>
+                        <a href="{{ route('about.show', $about->id) }}" class="btn btn-warning">Show</a>
+                        <a href="{{ route('about.edit', $about->id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('about.destroy', $about->id) }}" method="POST"
+                          style="display:inline;">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            @endif
           </div>
         </div>
       </div>
