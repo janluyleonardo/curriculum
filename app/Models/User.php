@@ -58,4 +58,12 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Get the user's education records.
+     */
+    public function educations()
+    {
+        return $this->hasMany(Education::class, 'userId', 'id');
+    }
 }
