@@ -15,6 +15,7 @@ class CreateAboutsTable extends Migration
     {
         Schema::create('abouts', function (Blueprint $table) {
             $table->id('id');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('dateOfBirth');
             $table->string('Photo');
             $table->string('name');
@@ -22,7 +23,7 @@ class CreateAboutsTable extends Migration
             $table->string('phone');
             $table->string('city');
             $table->string('department');
-            $table->string('locality');
+            $table->string('id_locality');
             $table->string('address');
             $table->string('barrio');
             $table->longText('personalProfile');

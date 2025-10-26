@@ -15,6 +15,7 @@ class About extends Model
      * @var string[]
      */
     protected $fillable = [
+        'user_id',
         'dateOfBirth',
         'Photo',
         'name',
@@ -22,7 +23,7 @@ class About extends Model
         'phone',
         'city',
         'department',
-        'locality',
+        'id_locality',
         'address',
         'barrio',
         'personalProfile',
@@ -32,4 +33,9 @@ class About extends Model
     protected $casts = [
         'social_media_links' => 'array',
     ];
+
+    public function locality()
+    {
+        return $this->belongsTo(Locality::class, 'id_locality');
+    }
 }

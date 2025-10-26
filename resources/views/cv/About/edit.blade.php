@@ -83,12 +83,12 @@
                   @enderror
                 </div>
                 <div class="col-md-4 mb-1 mt-2 text-center">
-                  <select class="form-control form-control-sm @error('locality') is-invalid @enderror" name="locality"
-                    id="locality" required>
+                  <select class="form-control form-control-sm mt-2 @error('id_locality') is-invalid @enderror"
+                    name="id_locality" id="id_locality" required>
                     <option value="" disabled selected>{{ __('Select a locality') }}</option>
                     @foreach ($localities as $locality)
-                      <option value="{{ $locality->postal_code }}"
-                        {{ old('locality') == $locality->postal_code ? 'selected' : '' }}>{{ $locality->name }}
+                      <option value="{{ $locality->id }}" {{ old('id_locality') == $locality->id ? 'selected' : '' }}>
+                        {{ $locality->name }}
                       </option>
                     @endforeach
                   </select>

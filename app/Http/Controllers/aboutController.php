@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAboutRequest;
+use App\Http\Requests\UpdateAboutRequest;
 use App\Models\About;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class aboutController extends Controller
 {
@@ -15,12 +19,16 @@ class aboutController extends Controller
      */
     public function index()
     {
-        //lista de localidades
-        $localities = new LocalityController();
-        $localities = $localities->index();
-        //lista de registros de about
-        $abouts = About::all();
-        // return $localities;
+        // Obtener las localidades
+        $localities = (new LocalityController())->index();
+
+        // Obtener solo los registros de About pertenecientes al usuario logueado
+        $userId = Auth::id();
+        $abouts = About::with('locality') // Carga la relación locality
+            ->where('user_id', $userId)
+            ->get();
+
+        // Retornar la vista con los datos
         return view('cv.about.index', compact('localities', 'abouts'));
     }
 
@@ -43,42 +51,39 @@ class aboutController extends Controller
     public function store(StoreAboutRequest $request)
     {
         $validatedData = $request->validated();
-        $document = $validatedData['document']; // Obtener el número de documento del usuario
+        $document = $validatedData['document'];
+        $userId = Auth::id();
 
-        // Verificar si ya existe un registro para el usuario
         $about = About::where('document', $document)->first();
 
-        // Manejar la subida de la imagen
-        if ($request->hasFile('Photo')) {
-            $path = $request->file('Photo')->storeAs(
-                'curriculumPhotos/' . $document,
-                $request->file('Photo')->getClientOriginalName(),
-                'public'
-            );
+        // Manejar la foto
+        $validatedData['Photo'] = $this->handleUserPhoto($request, $document, $about ? $about->Photo : null);
 
-            // Guardar la ruta de la imagen en los datos validados
-            $validatedData['Photo'] = $path;
-        }
-
-        // Verificar si social_media_links está presente en los datos validados
+        // Filtrar redes sociales seleccionadas
         $socialMediaLinks = $validatedData['social_media_links'] ?? [];
-
-        // Filtrar solo las redes sociales seleccionadas
         $filteredSocialMediaLinks = array_filter($socialMediaLinks, function ($link) {
             return !is_null($link);
         });
-
         $validatedData['social_media_links'] = $filteredSocialMediaLinks;
+        $validatedData['user_id'] = $userId;
 
         if ($about) {
-            // Si ya existe un registro, actualízalo
-            $about->update($validatedData);
+            Log::info('Actualizando información de About', ['document' => $document]);
+            try {
+                $about->update($validatedData);
+            } catch (\Throwable $th) {
+                return $th;
+            }
         } else {
-            // Si no existe, crea un nuevo registro
-            About::create($validatedData);
+            Log::info('Creando nueva información de About', ['document' => $document]);
+            try {
+                About::create($validatedData);
+            } catch (\Throwable $th) {
+                return $th;
+            }
         }
 
-        return redirect()->route('about.index')->banner('Exito, Información guardada correctamente.');
+        return redirect()->route('about.index')->banner('Éxito, Información guardada correctamente.');
     }
 
     /**
@@ -89,8 +94,9 @@ class aboutController extends Controller
      */
     public function show($id)
     {
+        $about = About::with('locality')->findOrFail($id);
         return view('cv.About.show', [
-            'about' => About::find($id),
+            'about' => About::with('locality')->findOrFail($id),
             'localities' => (new LocalityController())->index(),
         ]);
     }
@@ -101,14 +107,12 @@ class aboutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(About $about)
     {
-        // $about = About::find($id);
-        // return $about;
-        return view('cv.about.edit', [
-            'about' => About::find($id),
-            'localities' => (new LocalityController())->index(),
-        ]);
+        $about->load('locality'); // Carga la relación locality si no está cargada
+        $localities = (new LocalityController())->index();
+
+        return view('cv.about.edit', compact('about', 'localities'));
     }
 
     /**
@@ -118,30 +122,26 @@ class aboutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, About $about)
+    public function update(UpdateAboutRequest $request, About $about)
     {
-        $about->update($request->all());
-        // Manejar la subida de la imagen
-        if ($request->hasFile('Photo')) {
-            $path = $request->file('Photo')->storeAs(
-                'curriculumPhotos/' . $about->document,
-                $request->file('Photo')->getClientOriginalName(),
-                'public'
-            );
+        $validatedData = $request->validated();
+        $document = $validatedData['document'];
 
-            // Guardar la ruta de la imagen en los datos validados
-            $about->Photo = $path;
-        }
-        // Verificar si social_media_links está presente en los datos validados
-        $socialMediaLinks = $request->input('social_media_links', []);
-        // Filtrar solo las redes sociales seleccionadas
+        // Manejar la foto
+        $validatedData['Photo'] = $this->handleUserPhoto($request, $document, $about->Photo);
+        // dd($validatedData['Photo']);
+        // Filtrar redes sociales seleccionadas
+        $socialMediaLinks = $validatedData['social_media_links'] ?? [];
         $filteredSocialMediaLinks = array_filter($socialMediaLinks, function ($link) {
             return !is_null($link);
         });
-        $about->social_media_links = $filteredSocialMediaLinks;
-        $about->save();
-        return redirect()->route('about.index')->banner('Exito, Información actualizada correctamente.');
+        $validatedData['social_media_links'] = $filteredSocialMediaLinks;
+
+        $about->update($validatedData);
+
+        return redirect()->route('about.index')->banner('Éxito, Información actualizada correctamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -151,6 +151,43 @@ class aboutController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $aboutDelete = About::find($id);
+        if ($aboutDelete) {
+            try {
+                $aboutDelete->delete();
+                return redirect()->route('about.index')->banner('Éxito, Información eliminada correctamente.');
+            } catch (\Throwable $th) {
+                return redirect()->route('about.index')->dangerBanner('Error eliminando, Información no encontrada: ' . $th->getMessage());
+            }
+        } else {
+            return redirect()->route('about.index')->dangerBanner('Error, Información no encontrada.');
+        }
+    }
+
+    /**
+     * Maneja el guardado y actualización de la foto del usuario.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param string $document
+     * @param string|null $oldPhotoPath
+     * @return string|null
+     */
+    private function handleUserPhoto($request, $document, $oldPhotoPath = null)
+    {
+        if ($request->hasFile('Photo')) {
+            $photo = $request->file('Photo');
+            $userId = Auth::id();
+            $filename = 'user_' . $userId . '_photo.' . $photo->getClientOriginalExtension();
+
+            // Eliminar la foto anterior si existe
+            if ($oldPhotoPath && Storage::disk('public')->exists($oldPhotoPath)) {
+                Storage::disk('public')->delete($oldPhotoPath);
+            }
+
+            $path = $photo->storeAs('curriculumPhotos/' . $document, $filename, 'public');
+            return $path; // Devuelve el path de la nueva imagen
+        }
+
+        return $oldPhotoPath; // Si no hay nueva foto, devuelve el path anterior
     }
 }

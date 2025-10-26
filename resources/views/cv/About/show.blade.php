@@ -15,14 +15,15 @@
               <div class="col-md-3 "></div>
               <div class="col-md-3 "></div>
               <div class="col-md-3 text-end">
-                <a href="{{ url()->previous() }}">Volver</a>
+                <a href="{{ url()->previous() }}">{{ __('Back') }}</a>
               </div>
             </div>
           </div>
           <div class="card-body">
             <div class="row">
               <div class="col-md-2 text-center mx-auto">
-                <img src="{{ asset('storage/' . $about->Photo) }}" class="rounded mx-auto d-block" alt="About Photo">
+                <img src="{{ asset('storage/' . $about->Photo) }}" class="rounded mx-auto d-block border border-dark"
+                  alt="{{ asset('storage/' . $about->Photo) }}">
                 <span style="font-size: 0.75em;">Foto</span>
               </div>
             </div>
@@ -56,8 +57,8 @@
                 <span style="font-size: 0.75em;">Departamento</span>
               </div>
               <div class="col-md-2 mx-auto mt-2 text-center">
-                {{ $about->locality }}<br>
-                <span style="font-size: 0.75em;">Departamento</span>
+                {{ $about->locality->name }}<br>
+                <span style="font-size: 0.75em;">Localidad</span>
               </div>
               <div class="col-md-2 mx-auto mt-2 text-center">
                 {{ $about->address }}<br>
