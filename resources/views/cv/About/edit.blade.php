@@ -9,20 +9,18 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
         <div class="card">
-          <div class="card-header">Agregar información</div>
+          <div class="card-header">{{ __('add information') }}</div>
           <div class="card-body">
             <form action="{{ route('about.update', $about) }}" method="post" class="requires-validation"
               enctype="multipart/form-data" novalidate>
               @method('put')
               @csrf
               <div class="row">
-                <div class="col-md-4 mx-auto mt-2 text-center">
+                <div class="col-md-4 mx-auto mb-1 mt-2 text-center text-center">
                   <input class="form-control form-control-sm @error('dateOfBirth') is-invalid @enderror" type="date"
                     name="dateOfBirth" id="fechaNacimiento" value="{{ old('dateOfBirth', $about->dateOfBirth) }}"
                     required>
                   <span style="font-size: 0.75em;">Fecha de nacimiento</span>
-                  <div class="valid-feedback mv-up">You selected a fecha de nacimiento!</div>
-                  <div class="invalid-feedback mv-up">Please select a fecha de nacimiento!</div>
                   @error('dateOfBirth')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
@@ -30,9 +28,7 @@
                 <div class="col-md-6 text-center">
                   <input class="form-control form-control-sm mt-2 @error('Photo') is-invalid @enderror" type="file"
                     name="Photo" accept="image/png, image/jpeg" value="{{ $about->Photo }}" required>
-                  <span style="font-size: 0.75em;">Foto 3X4</span>
-                  <div class="valid-feedback">UserPhoto field is valid!</div>
-                  <div class="invalid-feedback">UserPhoto field cannot be blank!</div>
+                  <span style="font-size: 0.75em;">{{ __('Photo') }} 3X4</span>
                   @error('Photo')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
@@ -40,44 +36,34 @@
                 <div class="col-md-6">
                   <input class="form-control form-control-sm mt-2 @error('name') is-invalid @enderror" type="text"
                     name="name" placeholder="{{ __('Full Name') }}" value="{{ $about->name }}" required>
-                  <div class="valid-feedback">Username field is valid!</div>
-                  <div class="invalid-feedback">Username field cannot be blank!</div>
                   @error('name')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
                 </div>
-                <div class="col-md-3 mx-auto mt-2">
+                <div class="col-md-3 mx-auto mb-1 mt-2 text-center">
                   <input class="form-control form-control-sm @error('document') is-invalid @enderror" type="number"
-                    name="document" placeholder="N° documento" value="{{ $about->document }}" required>
-                  <div class="valid-feedback">Numero de documento field is valid!</div>
-                  <div class="invalid-feedback">Numero de documento field cannot be blank!</div>
+                    name="document" placeholder="{{ __('document number') }}" value="{{ $about->document }}" required>
                   @error('document')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
                 </div>
-                <div class="col-md-3 mx-auto mt-2">
+                <div class="col-md-3 mx-auto mb-1 mt-2 text-center">
                   <input class="form-control form-control-sm @error('phone') is-invalid @enderror" type="number"
-                    name="phone" placeholder="N° telefono" value="{{ $about->phone }}" required>
-                  <div class="valid-feedback">Telefono field is valid!</div>
-                  <div class="invalid-feedback">Telefono field cannot be blank!</div>
+                    name="phone" placeholder="{{ __('phone number') }}" value="{{ $about->phone }}" required>
                   @error('phone')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
                 </div>
-                <div class="col-md-4 mx-auto mt-2">
+                <div class="col-md-4 mx-auto mb-1 mt-2 text-center">
                   <input class="form-control form-control-sm @error('city') is-invalid @enderror" type="text"
-                    name="city" placeholder="city" value="{{ $about->city }}" required>
-                  <div class="valid-feedback">city field is valid!</div>
-                  <div class="invalid-feedback">city field cannot be blank!</div>
+                    name="city" placeholder="{{ __('city') }}" value="{{ $about->city }}" required>
                   @error('city')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
                 </div>
-                <div class="col-md-4 mx-auto mt-2">
+                <div class="col-md-4 mx-auto mb-1 mt-2 text-center">
                   <input class="form-control form-control-sm @error('department') is-invalid @enderror" type="text"
-                    name="department" placeholder="department" value="{{ $about->department }}" required>
-                  <div class="valid-feedback">department field is valid!</div>
-                  <div class="invalid-feedback">department field cannot be blank!</div>
+                    name="department" placeholder="{{ __('department') }}" value="{{ $about->department }}" required>
                   @error('department')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
@@ -87,37 +73,31 @@
                     name="id_locality" id="id_locality" required>
                     <option value="" disabled selected>{{ __('Select a locality') }}</option>
                     @foreach ($localities as $locality)
-                      <option value="{{ $locality->id }}" {{ old('id_locality') == $locality->id ? 'selected' : '' }}>
+                      <option value="{{ $locality->id }}"
+                        {{ old('id_locality', $about->id_locality) == $locality->id ? 'selected' : '' }}>
                         {{ $locality->name }}
                       </option>
                     @endforeach
                   </select>
-                  <div class="valid-feedback mv-up">You selected a locality!</div>
-                  <div class="invalid-feedback mv-up">Please select a locality!</div>
                   @error('locality')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
                 </div>
-                <div class="col-md-6 mt-2">
-                  <input class="form-control @error('address') is-invalid @enderror" type="text" name="address"
-                    placeholder="address" value="{{ $about->address }}" required>
-                  <div class="valid-feedback">address field is valid!</div>
-                  <div class="invalid-feedback">address field cannot be blank!</div>
+                <div class="col-md-6 mb-1 mt-2 text-center">
+                  <input class="form-control form-control-sm mt-2 @error('address') is-invalid @enderror" type="text"
+                    name="address" placeholder="address" value="{{ $about->address }}" required>
                   @error('address')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
                 </div>
-                <div class="col-md-6 mx-auto mt-2">
-                  <input class="form-control @error('barrio') is-invalid @enderror" type="text" name="barrio"
-                    placeholder="Barrio" value="{{ $about->barrio }}" required>
-                  <div class="valid-feedback">Barrio field is valid!</div>
-                  <div class="invalid-feedback">Barrio field cannot be blank!</div>
+                <div class="col-md-6 mx-auto mb-1 mt-2 text-center">
+                  <input class="form-control form-control-sm mt-2 @error('barrio') is-invalid @enderror" type="text"
+                    name="barrio" placeholder="Barrio" value="{{ $about->barrio }}" required>
                   @error('barrio')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
                 </div>
-                <div
-                  class="mt-2 col-md-12 col-sm-12 col-lg-12 mx-auto d-flex justify-content-center align-items-center">
+                <div class="col-md-12 col-sm-12 col-lg-12 mb-1 mt-2 text-center">
                   <div class="form-floating">
                     <textarea cols="150" class="form-control @error('personalProfile') is-invalid @enderror" name="personalProfile"
                       placeholder="Leave a comment here" id="floatingTextarea">{{ $about->personalProfile }}</textarea>
