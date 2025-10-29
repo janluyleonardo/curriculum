@@ -258,5 +258,10 @@
     "delete": "Eliminar",
     "Experience information": "Información de experiencia",
     "Edit Experience information": "Editar información de experiencia",
-    "functions performed": "funciones realizadas"
+    "functions performed": "funciones realizadas",
+    "add education information": "Agregar información de educación",
+    "institution": "Institución",
+    "degree": "Título",
+    "description of degree": "Descripción del título",
+    "studying currently": "Cursando actualmente"
 }

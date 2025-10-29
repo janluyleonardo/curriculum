@@ -9,7 +9,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
         <div class="card">
-          <div class="card-header">add education information</div>
+          <div class="card-header">{{ __('add education information') }}</div>
           <div class="card-body">
             <form action="{{ route('education.store') }}" method="post" class="requires-validation"
               enctype="multipart/form-data" novalidate>
@@ -22,8 +22,6 @@
                   <input class="form-control form-control-sm mt-2 @error('institution') is-invalid @enderror"
                     type="text" name="institution" placeholder="{{ __('institution') }}"
                     value="{{ old('institution') }}" required>
-                  <div class="valid-feedback">Institution field is valid!</div>
-                  <div class="invalid-feedback">Institution field cannot be blank!</div>
                   @error('institution')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
@@ -31,8 +29,6 @@
                 <div class="col-md-6 mx-auto mb-1 mt-2 text-center">
                   <input class="form-control form-control-sm mt-2 @error('degree') is-invalid @enderror" type="text"
                     name="degree" placeholder="{{ __('degree') }}" value="{{ old('degree') }}" required>
-                  <div class="valid-feedback">Degree field is valid!</div>
-                  <div class="invalid-feedback">Degree field cannot be blank!</div>
                   @error('degree')
                     <div class="text-danger">{{ $message }}</div>
                   @enderror
@@ -48,9 +44,36 @@
                     @enderror
                   </div>
                 </div>
-              </div>
-              <livewire:currently-position-checkbox />
+                <div class="col-md-3 mx-auto mb-1 mt-2 text-center">
+                  <input class="form-control form-control-sm mt-2 @error('startDate') is-invalid @enderror"
+                    type="date" name="startDate" id="startDate"
+                    value="{{ old('startDate') == null ? $startDate : old('startDate') }}" required>
+                  <span style="font-size: 0.75em;">{{ __('startDate') }}</span>
+                  @error('startDate')
+                    <div class="text-danger">{{ $message }}</div>
+                  @enderror
+                </div>
 
+                <div class="col-md-3 mt-2">
+                  <div class="form-check">
+                    <input class="form-check-input form-control-sm" type="checkbox" id="currentlyPosition"
+                      name="currentlyPosition" {{ $endDateDisabled ? 'checked' : '' }}>
+                    <label class="form-check-label form-control-sm" for="currentlyPosition">
+                      {{ __('studying currently') }}
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-md-3 mx-auto mb-1 mt-2 text-center">
+                  <input class="form-control form-control-sm mt-2 @error('endDate') is-invalid @enderror" type="date"
+                    name="endDate" id="endDate" value="{{ old('endDate') == null ? $endDate : old('endDate') }}"
+                    @if ($endDateDisabled) disabled @endif>
+                  <span style="font-size: 0.75em;">{{ __('endDate') }}</span>
+                  @error('endDate')
+                    <div class="text-danger">{{ $message }}</div>
+                  @enderror
+                </div>
+              </div>
               <div class="col-md-12 col-sm-12 col-lg-12 mx-auto d-flex justify-content-center align-items-center">
                 <div class="form-button mt-2 mb-2 p-2 mx-auto">
                   <button id="submit" type="submit" class="btn btn-secondary">{{ __('Add info') }}</button>

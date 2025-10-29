@@ -16,13 +16,17 @@ class educationController extends Controller
      */
     public function index()
     {
+        $startDate = null;
+        $endDate = null;
+        $endDateDisabled = false;
         // Obtener el usuario autenticado
         $user = Auth::user();
         // Obtener la educación relacionada con el usuario
         $educations = $user->educations()->get();
+
         // Retornar la vista con la información de educación
         // return $educations;
-        return view('cv.education.index', compact('educations'));
+        return view('cv.education.index', compact('educations', 'startDate', 'endDate', 'endDateDisabled'));
     }
 
     /**
@@ -80,7 +84,8 @@ class educationController extends Controller
     public function edit($id)
     {
         return view('cv.education.edit', [
-            'education' => Education::find($id)
+            'education' => Education::find($id),
+            'endDateDisabled' => false,
         ]);
     }
 
@@ -115,12 +120,11 @@ class educationController extends Controller
                 'description' => $validatedData['description'],
             ]);
         } catch (\Throwable $th) {
-            return $th->getMessage();
-            return redirect()->route('education.index')->dangerBanner('Error: Education record updated failed.');
+            return redirect()->route('education.index')->dangerBanner('Error: Fallo en la actualización de la educación.');
         }
 
         // Redirigir a alguna parte de tu aplicación, por ejemplo, a la lista de educación
-        return redirect()->route('education.index')->banner('success: Education record updated successfully.');
+        return redirect()->route('education.index')->banner('success: Educación actualizada correctamente.');
     }
 
     /**
