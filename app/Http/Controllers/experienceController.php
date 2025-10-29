@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreExperiencesRequest;
 use App\Models\Experience;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class experienceController extends Controller
 {
@@ -15,8 +16,11 @@ class experienceController extends Controller
      */
     public function index()
     {
+        $startDate = null;
+        $endDate = null;
+        $endDateDisabled = false;
         $experiences = Experience::all();
-        return view('cv.experience.index', compact('experiences'));
+        return view('cv.experience.index', compact('experiences', 'startDate', 'endDate', 'endDateDisabled'));
     }
 
     /**
@@ -37,12 +41,24 @@ class experienceController extends Controller
      */
     public function store(StoreExperiencesRequest $request)
     {
-        // return $request;
+        $userId = Auth::id();
         try {
-            $affected = Experience::create($request->all());
-            return redirect()->route('experience.index')->banner('Éxito, Información guardada correctamente.');
+            // Obtén todos los datos validados
+            $validatedData = $request->validated();
+
+            // Convierte el valor del checkbox a booleano
+            $validatedData['currentlyPosition'] = $request->has('currentlyPosition');
+
+            // Si el checkbox está marcado, establece `endDate` en null
+            if ($validatedData['currentlyPosition']) {
+                $validatedData['endDate'] = null;
+            }
+            $validatedData['user_id'] = $userId;
+            // Crea el registro con los datos ajustados
+            Experience::create($validatedData);
+
+            return redirect()->route('experience.index')->banner('Éxito, Información de experiencia guardada correctamente.');
         } catch (\Throwable $th) {
-            return $th;
             return redirect()->route('experience.index')->dangerBanner('Error, Información no guardada verifique: ' . $th->getMessage());
         }
     }
@@ -68,10 +84,17 @@ class experienceController extends Controller
      */
     public function edit($id)
     {
+        $startDate = null;
+        $endDate = null;
+        $endDateDisabled = false;
         $experiences = Experience::find($id);
+        // return $experiences;
         // return "experience => $experience";
         return view('cv.experience.edit', [
             'experiences' => $experiences,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'endDateDisabled' => $endDateDisabled,
         ]);
     }
 

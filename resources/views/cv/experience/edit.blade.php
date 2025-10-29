@@ -9,7 +9,16 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
         <div class="card">
-          <div class="card-header">{{ __('Add experience information') }}</div>
+          <div class="card-header">
+            <div class="row">
+              <div class="col-md-3 ">{{ __('Edit Experience information') }}</div>
+              <div class="col-md-3 "></div>
+              <div class="col-md-3 "></div>
+              <div class="col-md-3 text-end">
+                <a href="{{ url()->previous() }}">{{ __('back') }}</a>
+              </div>
+            </div>
+          </div>
           <div class="card-body">
             <form action="{{ route('experience.update', $experiences) }}" method="post" class="requires-validation"
               enctype="multipart/form-data" novalidate>
