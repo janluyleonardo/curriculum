@@ -23,25 +23,25 @@
             <div class="row">
               <div class="col-md-12 mx-auto mt-2 text-center">
                 {{ $experience->functions }}<br>
-                <span style="font-size: 0.75em;">{{ __('Functions performed') }}</span>
+                <span style="font-size: 0.75em;">{{ __('functions performed') }}</span>
               </div>
               <div class="col-md-2 mx-auto mt-2 text-center">
                 {{ $experience->startDate }}<br>
-                <span style="font-size: 0.75em;">{{ __('Start date') }}</span>
+                <span style="font-size: 0.75em;">{{ __('startDate') }}</span>
               </div>
               @if ($experience->endDate)
                 <div class="col-md-2 mx-auto mt-2 text-center">
                   {{ $experience->endDate }}<br>
-                  <span style="font-size: 0.75em;">{{ __('End date') }}</span>
+                  <span style="font-size: 0.75em;">{{ __('endDate') }}</span>
                 </div>
               @endif
               <div class="col-md-3 mx-auto mt-2 text-center">
                 {{ $experience->position }}<br>
-                <span style="font-size: 0.75em;">{{ __('Position') }}</span>
+                <span style="font-size: 0.75em;">{{ __('position') }}</span>
               </div>
               <div class="col-md-2 mx-auto mt-2 text-center">
                 {{ $experience->company }}<br>
-                <span style="font-size: 0.75em;">{{ __('Company') }}</span>
+                <span style="font-size: 0.75em;">{{ __('company') }}</span>
               </div>
             </div>
           </div>

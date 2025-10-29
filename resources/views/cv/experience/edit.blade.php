@@ -9,7 +9,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
         <div class="card">
-          <div class="card-header">Agregar información</div>
+          <div class="card-header">{{ __('Add experience information') }}</div>
           <div class="card-body">
             <form action="{{ route('experience.update', $experiences) }}" method="post" class="requires-validation"
               enctype="multipart/form-data" novalidate>
@@ -45,12 +45,41 @@
                     @enderror
                   </div>
                 </div>
-              </div>
-              <livewire:currently-position-checkbox :startDate="$experiences->startDate" :endDate="$experiences->endDate" :experienceId="$experiences->id" />
+                {{-- <livewire:currently-position-checkbox :startDate="$experiences->startDate" :endDate="$experiences->endDate" :experienceId="$experiences->id" /> --}}
+                <div class="col-md-3 mx-auto mb-1 mt-2 text-center">
+                  <input class="form-control form-control-sm mt-2 @error('startDate') is-invalid @enderror"
+                    type="date" name="startDate" id="startDate"
+                    value="{{ old('startDate') == null ? $experiences->startDate : old('startDate') }}" required>
+                  <span style="font-size: 0.75em;">{{ __('startDate') }}</span>
 
-              <div class="col-md-12 col-sm-12 col-lg-12 mx-auto d-flex justify-content-center align-items-center">
-                <div class="form-button mt-2 mb-2 p-2 mx-auto">
-                  <button id="submit" type="submit" class="btn btn-secondary">{{ __('Add info') }}</button>
+                  @error('startDate')
+                    <div class="text-danger">{{ $message }}</div>
+                  @enderror
+                </div>
+
+                <div class="col-md-3 mt-2">
+                  <div class="form-check">
+                    <input class="form-check-input form-control-sm" type="checkbox" id="currentlyPosition"
+                      name="currentlyPosition" {{ $endDateDisabled ? 'checked' : '' }}>
+                    <label class="form-check-label form-control-sm" for="currentlyPosition">
+                      {{ __('¿Is Currently position?') }}
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-md-3 mx-auto mb-1 mt-2 text-center">
+                  <input class="form-control form-control-sm mt-2 @error('endDate') is-invalid @enderror" type="date"
+                    name="endDate" id="endDate" value="{{ old('endDate') == null ? $endDate : old('endDate') }}"
+                    @if ($endDateDisabled) disabled @endif>
+                  <span style="font-size: 0.75em;">{{ __('endDate') }}</span>
+                  @error('endDate')
+                    <div class="text-danger">{{ $message }}</div>
+                  @enderror
+                </div>
+                <div class="col-md-12 col-sm-12 col-lg-12 mx-auto d-flex justify-content-center align-items-center">
+                  <div class="form-button mt-2 mb-2 p-2 mx-auto">
+                    <button id="submit" type="submit" class="btn btn-secondary">{{ __('Add info') }}</button>
+                  </div>
                 </div>
               </div>
             </form>
@@ -60,16 +89,3 @@
     </div>
   </div>
 </x-app-layout>
-
-<script>
-  document.querySelectorAll('.form-check-input').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-      const linkInput = document.getElementById(`${this.id}_link`);
-      if (this.checked) {
-        linkInput.style.display = 'block';
-      } else {
-        linkInput.style.display = 'none';
-      }
-    });
-  });
-</script>

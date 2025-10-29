@@ -142,7 +142,6 @@ class aboutController extends Controller
         return redirect()->route('about.index')->banner('Éxito, Información actualizada correctamente.');
     }
 
-
     /**
      * Remove the specified resource from storage.
      *

@@ -245,5 +245,17 @@
     "Professional profile": "Perfil profesional",
     "Personal Information": "Información personal",
     "back": "volver",
-    "Social Media": "Redes Sociales"
+    "Social Media": "Redes Sociales",
+    "Add experience information": "Agregar información de experiencia",
+    "position": "Puesto",
+    "Functions of charge": "Funciones del cargo",
+    "¿Is Currently position?": "¿Es el puesto actual?",
+    "company": "Empresa",
+    "startDate": "Fecha de inicio",
+    "endDate": "Fecha de finalización",
+    "show": "Ver",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "Experience information": "Información de experiencia",
+    "functions performed": "funciones realizadas"
 }

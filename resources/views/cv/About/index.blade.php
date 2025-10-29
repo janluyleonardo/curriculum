@@ -20,6 +20,7 @@
                     <th scope="col">{{ __('Full Name') }}</th>
                     <th scope="col">{{ __('DocumentNumber') }}</th>
                     <th scope="col">{{ __('Phone') }}</th>
+                    <th scope="col">{{ __('Professional profile') }}</th>
                     <th scope="col">{{ __('Actions') }}</th>
                   </tr>
                 </thead>
@@ -30,13 +31,15 @@
                       <td>{{ $about->name }}</td>
                       <td>{{ $about->document }}</td>
                       <td>{{ $about->phone }}</td>
+                      <td>{{ $about->personalProfile }}</td>
                       <td>
-                        <a href="{{ route('about.show', $about->id) }}" class="btn btn-warning">Show</a>
-                        <a href="{{ route('about.edit', $about->id) }}" class="btn btn-info">Edit</a>
+                        <a href="{{ route('about.show', $about->id) }}"
+                          class="btn btn-warning">{{ __('show') }}</a>
+                        <a href="{{ route('about.edit', $about->id) }}" class="btn btn-info">{{ __('edit') }}</a>
                         <form action="{{ route('about.destroy', $about->id) }}" method="POST" style="display:inline;">
                           @csrf
                           @method('DELETE')
-                          <button type="submit" class="btn btn-danger">Delete</button>
+                          <button type="submit" class="btn btn-danger">{{ __('delete') }}</button>
                         </form>
                       </td>
                     </tr>

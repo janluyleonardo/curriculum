@@ -1,12 +1,13 @@
 
-<!-- <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p> -->
+# curriculumAPP
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="public/favicon.png" width="200"></a></p>
 
-<!-- <p align="center">
+<p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p> -->
+</p>
 
 ## About curriculumAPP
 
@@ -20,14 +21,18 @@ curriculumAPP is a web application framework with expressive, elegant syntax. We
 - [PHP 7.*^](https://www.php.net/downloads.php) Omitir si ya se instalo el servidor local.
 - [nodeJS](https://nodejs.org/en/download).
 - [Database](#) MySql, MariaDB, PostgreSQL, SQLite, SQL Server, Etc...
+- [Git](https://git-scm.com/downloads)  
 
 ##  Quick start commands
 - [Clonar el repositorio](https://github.com/janluyleonardo/curriculum.git)
 >   ```bash
->   https://github.com/janluyleonardo/curriculum.git
+>   git clone https://github.com/janluyleonardo/curriculum.git
 - [Intalar dependencias del proyecto con composer](#)
 >   ```bash
 >   composer install
+- [Instalar las dependencias que se usan en el proyecto de npm para entorno de desarrollo](#)
+>   ```bash
+>   npm install
 - [Compilar las dependencias que se usan en el proyecto de npm para entorno de desarrollo](#)
 >   ```bash
 >   npm run dev
@@ -39,9 +44,12 @@ curriculumAPP is a web application framework with expressive, elegant syntax. We
 >   cp .env.example .env
 - [Asignar credenciales de conexion a la DB, usuario y contraseña, en archivo .env ](#).
 >   ```bash
->   DB_DATABASE = Database name  
->   DB_USERNAME = user database name  
->   DB_PASSWORD = password database
+>   DB_CONNECTION=mysql
+>   DB_HOST=127.0.0.1
+>   DB_DATABASE=name from db
+>   DB_PORT=3306
+>   DB_PASSWORD=password from db
+>   DB_USERNAME=user from db
 - [Generar enlace simbolico de storage para poder manipular imagenes dentro del proyecto](#).
 >   ```bash
 >   php artisan storage:link
@@ -85,15 +93,15 @@ We would like to extend our thanks to the following sponsors for funding curricu
 
 ## Contributing
 
-Thank you for considering contributing to the curriculumAPP; The contribution guide can be found in the [curriculumAPP documentation](https://laravel.com/docs/contributions).
+Thank you for considering contributing to the curriculumAPP; The contribution guide can be found in the [curriculumAPP documentation](https://laravel.com/docs/8.x/contributions).
 
 ## Code of Conduct
 
-In order to ensure that the curriculumAPP community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+In order to ensure that the curriculumAPP community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/8.x/contributions#code-of-conduct).
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within curriculumAPP, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within curriculumAPP, please send an e-mail to Taylor Otwell via [janluy.morneo@gmail.com](mailto:janluy.morneo@gmail.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 

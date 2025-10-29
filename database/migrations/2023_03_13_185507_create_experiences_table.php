@@ -15,9 +15,11 @@ class CreateExperiencesTable extends Migration
     {
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('position');
             $table->string('company');
             $table->longText('functions');
+            $table->boolean('currentlyPosition')->default(false);
             $table->date('startDate');
             $table->date('endDate')->nullable();
             $table->timestamps();
