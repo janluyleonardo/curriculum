@@ -229,6 +229,7 @@
     "Phone": "Telefono",
     "Actions": "Acciones",
     "about": "Acerca de",
+    "Add about information": "Agregar información de acerca de",
     "experience": "Experiencia",
     "education": "Educación",
     "skills": "Habilidades",
@@ -263,5 +264,8 @@
     "institution": "Institución",
     "degree": "Título",
     "description of degree": "Descripción del título",
-    "studying currently": "Cursando actualmente"
+    "studying currently": "Cursando actualmente",
+    "Available Skills": "Habilidades disponibles",
+    "Selected Skills": "Habilidades seleccionadas",
+    "My Skills": "Mis habilidades"
 }

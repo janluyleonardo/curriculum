@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('About') }}
+      {{ __('about') }}
     </h2>
   </x-slot>
 
@@ -9,7 +9,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
         <div class="card">
-          <div class="card-header">{{ __('add information') }}</div>
+          <div class="card-header">{{ __('Add about information') }}</div>
           <div class="card-body">
 
             @if ($abouts->isNotEmpty())

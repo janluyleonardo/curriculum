@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Skill;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,14 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             LocalitySeeder::class,
-            // modulesConfigs::class,
-            // ModuleSeeder::class,
-            // leadershipSeeder::class,
-            // OrganizationStructureSeeder::class,
-            // CitySeeder::class,
-            // OficialSeeder::class,
-            // SubOficialSeeder::class,
-            // UnitPlanSeeder::class,
+            SkillsSeeder::class,
         ]);
     }
 }
