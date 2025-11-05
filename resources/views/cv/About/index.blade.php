@@ -180,8 +180,8 @@
                     <button id="submit" type="submit" class="btn btn-secondary">{{ __('Add info') }}</button>
                   </div>
                 </div>
+              </form>
           </div>
-          </form>
           @endif
         </div>
       </div>

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             LocalitySeeder::class,
             SkillsSeeder::class,
+            CategorySeeder::class,
         ]);
     }
 }

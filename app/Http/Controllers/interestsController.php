@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreInterestsRequest;
+use App\Http\Requests\UpdateInterestsRequest;
+use App\Models\Category;
+use App\Models\Interest;
+use Illuminate\Support\Facades\Auth;
 
 class interestsController extends Controller
 {
@@ -13,7 +17,13 @@ class interestsController extends Controller
      */
     public function index()
     {
-        return view('cv/interests/index');
+        try {
+            $interests = Interest::with('category')->where('user_id', Auth::id())->get();
+            $categories = Category::where('state', true)->get();
+        } catch (\Throwable $th) {
+            return redirect()->route('interests.index')->dangerBanner('Error consultando, Información no encontrada: ' . $th->getMessage());
+        }
+        return view('cv.interests.index', compact('interests', 'categories'));
     }
 
     /**
@@ -32,9 +42,14 @@ class interestsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreInterestsRequest $request)
     {
-        //
+        try {
+            Auth::user()->interests()->create($request->all());
+        } catch (\Throwable $th) {
+            return redirect()->route('interests.index')->dangerBanner('Error eliminando, Información no encontrada: ' . $th->getMessage());
+        }
+        return redirect()->route('interests.index')->banner('Éxito, Interés agregado correctamente.');
     }
 
     /**
@@ -43,7 +58,7 @@ class interestsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Interest $interest)
     {
         //
     }
@@ -54,9 +69,14 @@ class interestsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Interest $interest)
     {
-        //
+        try {
+            $categories = Category::where('state', true)->get();
+        } catch (\Throwable $th) {
+            return redirect()->route('interests.index')->dangerBanner('Error editando, Información no encontrada: ' . $th->getMessage());
+        }
+        return view('cv.interests.edit', compact('interest', 'categories'));
     }
 
     /**
@@ -66,9 +86,14 @@ class interestsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateInterestsRequest $request, Interest $interest)
     {
-        //
+        try {
+            $interest->update($request->all());
+        } catch (\Throwable $th) {
+            return redirect()->route('interests.index')->dangerBanner('Error actualizando, Información no encontrada: ' . $th->getMessage());
+        }
+        return redirect()->route('interests.index')->banner('Éxito, Interés actualizado correctamente.');
     }
 
     /**
@@ -77,8 +102,13 @@ class interestsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Interest $interest)
     {
-        //
+        try {
+            $interest->delete();
+        } catch (\Throwable $th) {
+            return redirect()->route('interests.index')->dangerBanner('Error eliminando, Información no encontrada: ' . $th->getMessage());
+        }
+        return redirect()->route('interests.index')->with('success', 'Interés eliminado correctamente.');
     }
 }

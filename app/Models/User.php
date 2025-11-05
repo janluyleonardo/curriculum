@@ -76,4 +76,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(AvailableSkill::class, 'skills');
     }
+
+    /**
+     * interests
+     *
+     * @return void
+     */
+    public function interests()
+    {
+        return $this->hasMany(Interest::class);
+    }
 }
