@@ -6,6 +6,7 @@ use App\Http\Controllers\educationController;
 use App\Http\Controllers\skillsController;
 use App\Http\Controllers\interestsController;
 use App\Http\Controllers\awardsController;
+use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\previewController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,4 +47,8 @@ Route::middleware([
     Route::resource('/awards', awardsController::class);
 
     Route::resource('/preview', previewController::class);
+
+    Route::get('/curriculum/preview', [CurriculumController::class, 'preview'])->name('curriculum.preview');
+
+    Route::get('/curriculum/pdf', [CurriculumController::class, 'generatePDF'])->name('curriculum.pdf');
 });

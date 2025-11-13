@@ -102,16 +102,43 @@
                       <td>{{ $education->startDate }}</td>
                       <td>{{ $education->endDate }}</td>
                       <td>
-                        <a href="{{ route('education.show', $education->id) }}" class="btn btn-warning">Show</a>
-                        <a href="{{ route('education.edit', $education->id) }}" class="btn btn-primary">Edit</a>
-                        <form action="{{ route('education.destroy', $education->id) }}" method="POST"
-                          style="display:inline;">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <a href="{{ route('education.show', $education->id) }}" class="btn btn-info">Show</a>
+                          <a href="{{ route('education.edit', $education->id) }}" class="btn btn-warning">Edit</a>
+                          <a title="Eliminar" href="#deleteModal{{ $education->id }}" class="sombra btn btn-danger"
+                            data-bs-toggle="modal">{{ __('Delete') }}</a>
+                        </div>
                       </td>
                     </tr>
+                    <!-- Modal delete-->
+                    <div class="modal fade" id="deleteModal{{ $education->id }}" tabindex="-1"
+                      aria-labelledby="deleteModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content sombra bg-white">
+                          <div class="modal-header sombra bn-100">
+                            <h1 class="modal-title fs-5 mx-auto" id="exampleModalLabel">
+                              esta seguro(a) de eliminar el registro de:
+                            </h1>
+                            <button type="button" class="btn-close sombra" data-bs-dismiss="modal"
+                              aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body sombra">
+                            <strong>{{ Str::upper($education->institution) }}</strong><br>
+                            <strong>{{ Str::upper($education->degree) }}</strong>
+                          </div>
+                          <div class="modal-footer bn-100">
+                            {{-- <button type="button" class=" sombra btn btn-warning"
+                              data-bs-dismiss="modal">Close</button> --}}
+                            <form action="{{ route('education.destroy', $education->id) }}" method="POST"
+                              style="display:inline;">
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="btn btn-danger">{{ __('delete') }}</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   @endforeach
                 </tbody>
               </table>

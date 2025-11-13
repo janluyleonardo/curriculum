@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Award extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'institution', 'year', 'description'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

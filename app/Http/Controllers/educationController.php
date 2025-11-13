@@ -22,7 +22,7 @@ class educationController extends Controller
         // Obtener el usuario autenticado
         $user = Auth::user();
         // Obtener la educación relacionada con el usuario
-        $educations = $user->educations()->get();
+        $educations = $user->educations()->orderBy('endDate', 'desc')->get();
 
         // Retornar la vista con la información de educación
         // return $educations;

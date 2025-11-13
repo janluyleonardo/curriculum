@@ -21,6 +21,7 @@ class experienceController extends Controller
         $endDateDisabled = false;
         $userId = Auth::id();
         $experiences = Experience::where('user_id', $userId)->get();
+        // return $experiences;
         return view('cv.experience.index', compact('experiences', 'startDate', 'endDate', 'endDateDisabled'));
     }
 

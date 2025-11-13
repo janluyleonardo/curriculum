@@ -101,18 +101,45 @@
                       <td>{{ $experience->startDate }}</td>
                       <td>{{ $experience->endDate }}</td>
                       <td>
-                        <a href="{{ route('experience.show', $experience->id) }}"
-                          class="btn btn-warning">{{ __('show') }}</a>
-                        <a href="{{ route('experience.edit', $experience->id) }}"
-                          class="btn btn-info">{{ __('edit') }}</a>
-                        <form action="{{ route('experience.destroy', $experience->id) }}" method="POST"
-                          style="display:inline;">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-danger">{{ __('delete') }}</button>
-                        </form>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                          <a href="{{ route('experience.show', $experience->id) }}"
+                            class="btn btn-info">{{ __('show') }}</a>
+                          <a href="{{ route('experience.edit', $experience->id) }}"
+                            class="btn btn-warning">{{ __('edit') }}</a>
+                          <a title="Eliminar" href="#deleteModal{{ $experience->id }}" class="sombra btn btn-danger"
+                            data-bs-toggle="modal">{{ __('Delete') }}</a>
+                        </div>
                       </td>
                     </tr>
+                    <!-- Modal delete-->
+                    <div class="modal fade" id="deleteModal{{ $experience->id }}" tabindex="-1"
+                      aria-labelledby="deleteModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content sombra bg-white">
+                          <div class="modal-header sombra bn-100">
+                            <h1 class="modal-title fs-5 mx-auto" id="exampleModalLabel">
+                              esta seguro(a) de eliminar el registro de:
+                            </h1>
+                            <button type="button" class="btn-close sombra" data-bs-dismiss="modal"
+                              aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body sombra">
+                            <strong>{{ Str::upper($experience->company) }}</strong><br>
+                            <strong>{{ Str::upper($experience->position) }}</strong>
+                          </div>
+                          <div class="modal-footer bn-100">
+                            {{-- <button type="button" class=" sombra btn btn-warning"
+                              data-bs-dismiss="modal">Close</button> --}}
+                            <form action="{{ route('experience.destroy', $experience->id) }}" method="POST"
+                              style="display:inline;">
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="btn btn-danger">{{ __('delete') }}</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   @endforeach
                 </tbody>
               </table>
@@ -122,6 +149,7 @@
       </div>
     </div>
   </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const currentlyPositionCheckbox = document.getElementById('currentlyPosition');

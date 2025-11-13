@@ -31,10 +31,13 @@
             {{ __('interests') }}
           </x-jet-nav-link>
           <x-jet-nav-link href="{{ route('awards.index') }}" :active="request()->routeIs('awards*')">
-            {{ __('complementary studies') }}
+            {{ __('awards') }}
           </x-jet-nav-link>
           <x-jet-nav-link href="{{ route('preview.index') }}" :active="request()->routeIs('preview')">
             {{ __('preview') }}
+          </x-jet-nav-link>
+          <x-jet-nav-link href="{{ route('curriculum.preview') }}" :active="request()->routeIs('curriculum')">
+            {{ __('curriculum') }}
           </x-jet-nav-link>
         </div>
       </div>
@@ -192,11 +195,11 @@
       <x-jet-responsive-nav-link href="{{ route('interests.index') }}" :active="request()->routeIs('interests.*')">
         {{ __('interests') }}
       </x-jet-responsive-nav-link>
-      <x-jet-responsive-nav-link href="{{ route('interests.index') }}" :active="request()->routeIs('interests.*')">
-        {{ __('complementary studies') }}
+      <x-jet-responsive-nav-link href="{{ route('awards.index') }}" :active="request()->routeIs('awards.*')">
+        {{ __('awards') }}
       </x-jet-responsive-nav-link>
-      <x-jet-responsive-nav-link href="{{ route('interests.index') }}" :active="request()->routeIs('interests.*')">
-        {{ __('interests') }}
+      <x-jet-responsive-nav-link href="{{ route('preview.index') }}" :active="request()->routeIs('preview.*')">
+        {{ __('preview') }}
       </x-jet-responsive-nav-link>
     </div>
 

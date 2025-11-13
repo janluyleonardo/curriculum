@@ -13,7 +13,8 @@ class previewController extends Controller
      */
     public function index()
     {
-        return view('cv/preview/index');
+        // return view('cv/preview/index');
+        return view('cv/preview/preview');
     }
 
     /**

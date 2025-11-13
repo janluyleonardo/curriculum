@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Award;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class awardsController extends Controller
 {
@@ -13,7 +15,13 @@ class awardsController extends Controller
      */
     public function index()
     {
-        return view('cv.awards.index');
+        try {
+            $awards = Award::where('user_id', Auth::id())->get();
+        } catch (\Throwable $th) {
+            return redirect()->route('awards.index')->dangerBanner('Error consultando, Información no encontrada: ' . $th->getMessage());
+        }
+        //code...
+        return view('cv.awards.index', compact('awards'));
     }
 
     /**
@@ -23,7 +31,7 @@ class awardsController extends Controller
      */
     public function create()
     {
-        //
+        return view('cv.awards.create');
     }
 
     /**
@@ -34,7 +42,18 @@ class awardsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'institution' => 'nullable|string|max:255',
+            'year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
+            'description' => 'nullable|string',
+        ]);
+        try {
+            Auth::user()->awards()->create($request->all());
+        } catch (\Throwable $th) {
+            return redirect()->route('awards.index')->dangerBanner('Error creando, Información no encontrada: ' . $th->getMessage());
+        }
+        return redirect()->route('awards.index')->banner('Éxito, Premio guardado correctamente.');
     }
 
     /**
@@ -43,9 +62,9 @@ class awardsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Award $award)
     {
-        //
+        return view('cv.awards.show', compact('award'));
     }
 
     /**
@@ -54,9 +73,9 @@ class awardsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Award $award)
     {
-        //
+        return view('cv.awards.edit', compact('award'));
     }
 
     /**
@@ -66,19 +85,35 @@ class awardsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Award $award)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'institution' => 'nullable|string|max:255',
+            'year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
+            'description' => 'nullable|string',
+        ]);
+        try {
+            $award->update($request->all());
+        } catch (\Throwable $th) {
+            return redirect()->route('awards.index')->dangerBanner('Error creando, Información no encontrada: ' . $th->getMessage());
+        }
+        return redirect()->route('awards.index')->banner('Éxito, Premio actualizado correctamente.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * destroy
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  mixed $award
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(Award $award)
     {
-        //
+        try {
+            $award->delete();
+        } catch (\Throwable $th) {
+            return redirect()->route('awards.index')->dangerBanner('Error creando, Información no encontrada: ' . $th->getMessage());
+        }
+        return redirect()->route('awards.index')->banner('Éxito, Premio eliminado correctamente.');
     }
 }

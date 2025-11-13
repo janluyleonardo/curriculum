@@ -60,6 +60,26 @@ class User extends Authenticatable
     ];
 
     /**
+     * about
+     *
+     * @return void
+     */
+    public function about()
+    {
+        return $this->hasOne(About::class);
+    }
+
+    /**
+     * experiences
+     *
+     * @return void
+     */
+    public function experiences()
+    {
+        return $this->hasMany(Experience::class);
+    }
+
+    /**
      * Get the user's education records.
      */
     public function educations()
@@ -72,9 +92,14 @@ class User extends Authenticatable
      *
      * @return void
      */
+    // public function skills()
+    // {
+    //     return $this->belongsToMany(AvailableSkill::class, 'skills');
+    // }
+
     public function skills()
     {
-        return $this->belongsToMany(AvailableSkill::class, 'skills');
+        return $this->hasMany(Skill::class, 'user_id', 'id');
     }
 
     /**
@@ -85,5 +110,15 @@ class User extends Authenticatable
     public function interests()
     {
         return $this->hasMany(Interest::class);
+    }
+
+    /**
+     * awards
+     *
+     * @return void
+     */
+    public function awards()
+    {
+        return $this->hasMany(Award::class);
     }
 }
