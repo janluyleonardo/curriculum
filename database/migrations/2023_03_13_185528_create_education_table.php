@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEducationsTable extends Migration
+class CreateEducationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEducationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('educations', function (Blueprint $table) {
+        Schema::create('education', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id'); // Columna para la clave foránea
             $table->string('degree'); // Título o grado obtenido
@@ -35,6 +35,6 @@ class CreateEducationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('educations');
+        Schema::dropIfExists('education');
     }
 }
