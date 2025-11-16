@@ -65,6 +65,10 @@
     --bs-body-bg: #fff;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 *,
 *::before,
 *::after {

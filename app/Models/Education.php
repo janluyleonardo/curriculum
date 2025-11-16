@@ -10,7 +10,7 @@ class Education extends Model
     use HasFactory;
 
     protected $fillable = [
-        'userId',
+        'user_id',
         'degree',
         'institution',
         'startDate',

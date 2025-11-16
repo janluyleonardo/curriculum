@@ -33,9 +33,6 @@
           <x-jet-nav-link href="{{ route('awards.index') }}" :active="request()->routeIs('awards*')">
             {{ __('awards') }}
           </x-jet-nav-link>
-          <x-jet-nav-link href="{{ route('preview.index') }}" :active="request()->routeIs('preview')">
-            {{ __('preview') }}
-          </x-jet-nav-link>
           <x-jet-nav-link href="{{ route('curriculum.preview') }}" :active="request()->routeIs('curriculum')">
             {{ __('curriculum') }}
           </x-jet-nav-link>
@@ -198,8 +195,8 @@
       <x-jet-responsive-nav-link href="{{ route('awards.index') }}" :active="request()->routeIs('awards.*')">
         {{ __('awards') }}
       </x-jet-responsive-nav-link>
-      <x-jet-responsive-nav-link href="{{ route('preview.index') }}" :active="request()->routeIs('preview.*')">
-        {{ __('preview') }}
+      <x-jet-responsive-nav-link href="{{ route('curriculum.preview') }}" :active="request()->routeIs('curriculum.*')">
+        {{ __('curriculum') }}
       </x-jet-responsive-nav-link>
     </div>
 

@@ -31,7 +31,7 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('cv/preview/index');
     })->name('dashboard');
 
     Route::resource('/about', aboutController::class);

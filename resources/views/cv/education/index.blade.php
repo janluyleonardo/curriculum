@@ -16,7 +16,7 @@
               @csrf
               <div class="row">
                 <div class="col-md-12">
-                  <input type="hidden" name="userId" id="userId" value="{{ Auth::user()->id }}">
+                  <input type="hidden" name="user_id" id="user_id" value="{{ Auth::user()->id }}">
                 </div>
                 <div class="col-md-6 mx-auto mb-1 mt-2 text-center">
                   <input class="form-control form-control-sm mt-2 @error('institution') is-invalid @enderror"

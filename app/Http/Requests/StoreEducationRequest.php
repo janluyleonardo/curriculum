@@ -24,7 +24,7 @@ class StoreEducationRequest extends FormRequest
     public function rules()
     {
         return [
-            'userId' => 'required|integer|exists:users,id',
+            'user_id' => 'required|integer|exists:users,id',
             'degree' => 'required|string|max:255',
             'institution' => 'required|string|max:255',
             'startDate' => 'required|date',

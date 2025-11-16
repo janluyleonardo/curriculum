@@ -38,4 +38,8 @@ class About extends Model
     {
         return $this->belongsTo(Locality::class, 'id_locality');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

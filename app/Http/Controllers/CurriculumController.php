@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class CurriculumController extends Controller
 {
@@ -13,12 +13,12 @@ class CurriculumController extends Controller
         $data = [
             'about' => $user->about,
             'experiences' => $user->experiences,
-            'education' => $user->education,
+            'educations' => $user->educations,
             'skills' => $user->skills,
             'awards' => $user->awards,
         ];
-        return $data;
-        return view('curriculum.preview', $data);
+        // return $data;
+        return view('cv/curriculum.preview', $data);
     }
 
     // Generar el PDF
@@ -32,8 +32,9 @@ class CurriculumController extends Controller
             'skills' => $user->skills,
             'awards' => $user->awards,
         ];
+        // return  $data;
 
-        $pdf = PDF::loadView('curriculum.pdf', $data);
+        $pdf = PDF::loadView('cv.curriculum.pdf', $data);
         return $pdf->download('curriculum_' . $user->name . '.pdf');
     }
 }

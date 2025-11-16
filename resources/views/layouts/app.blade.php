@@ -9,6 +9,7 @@
   <title>{{ config('app.name', 'Laravel') }}</title>
   <link rel="stylesheet" href="{{ asset('css/app.css?v=' . now()->format('H.s')) }}">
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css?v=' . now()->format('H.s')) }}">
+  <link rel="stylesheet" href="{{ asset('css/icons-social-media.css?v=' . now()->format('H.s')) }}">
   <!-- favicon -->
   <link rel="shortcut icon" href="{{ asset('favicon.png?V=' . now()->format('H.s')) }}" type="image/x-icon">
   <!-- Fonts -->

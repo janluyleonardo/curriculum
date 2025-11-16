@@ -47,9 +47,10 @@ class educationController extends Controller
      */
     public function store(StoreEducationRequest $request)
     {
+        return $request;
         try {
             Education::create([
-                'userId' => $request['userId'],
+                'user_id' => $request['user_id'],
                 'degree' => $request['degree'],
                 'institution' => $request['institution'],
                 'startDate' => $request['startDate'],
@@ -57,7 +58,7 @@ class educationController extends Controller
                 'description' => $request['description'],
             ]);
         } catch (\Throwable $th) {
-            return redirect()->route('education.index')->errorBanner('Error: Education record created failed with: ' . $th->getMessage());
+            return redirect()->route('education.index')->dangerBanner('Error: Education record created failed with: ' . $th->getMessage());
         }
 
         return redirect()->route('education.index')->banner('success: Education record created successfully.');
